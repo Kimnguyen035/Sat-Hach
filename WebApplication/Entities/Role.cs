@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace WebApplication.Entities
 {
-    public class Role : IdentityRole<long>
+    public class Role : IdentityRole<Guid>
     {
         public string Decription { get; set; }
 

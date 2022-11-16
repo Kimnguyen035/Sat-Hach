@@ -22,7 +22,7 @@ namespace WebApplication.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAllProduct()
+        public async Task<IActionResult> GetAllRole()
         {
             var ListRole = await _roleRepository.GetAllRole();
 
@@ -30,7 +30,7 @@ namespace WebApplication.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetUserDetail(long id)
+        public async Task<IActionResult> GetRoleDetail(Guid id)
         {
             var role = await _roleRepository.GetRoleId(id);
 
@@ -43,7 +43,7 @@ namespace WebApplication.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateUser([FromBody] string roleName)
+        public async Task<IActionResult> CreateRole([FromBody] string roleName)
         {
             if (!ModelState.IsValid)
             {
@@ -54,17 +54,17 @@ namespace WebApplication.Controllers
             {
                 Name = roleName,
                 NormalizedName = roleName,
-                Created_at = DateTime.UtcNow,
-                Updated_at = DateTime.UtcNow
+                Created_at = DateTime.Now,
+                Updated_at = DateTime.Now
             };
 
             var roleCreate = await _roleRepository.CreateRole(role);
 
-            return CreatedAtAction(nameof(GetUserDetail), new { id = roleCreate.Id }, roleCreate);
+            return CreatedAtAction(nameof(GetRoleDetail), new { id = roleCreate.Id }, roleCreate);
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdatedUser(long id, [FromBody] string roleName)
+        public async Task<IActionResult> UpdatedUser(Guid id, [FromBody] string roleName)
         {
             if (!ModelState.IsValid)
             {
@@ -79,7 +79,7 @@ namespace WebApplication.Controllers
             }
 
             role.Name = roleName;
-            role.Updated_at = DateTime.UtcNow;
+            role.Updated_at = DateTime.Now;
 
             var roleUpdate = await _roleRepository.UpdateRole(role);
             return Ok(new Roled

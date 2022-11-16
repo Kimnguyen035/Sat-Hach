@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace WebApplication.Entities
 {
-    public class User : IdentityUser<long>
+    public class User : IdentityUser<Guid>
     {
         public string FirstName { get; set; }
 

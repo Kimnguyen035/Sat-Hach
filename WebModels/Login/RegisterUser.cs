@@ -15,7 +15,10 @@ namespace WebModels
 
         [Required]
         public string PassWordHash { get; set; }
-        
+
+        [Required]
+        public string PassWordConfirm { get; set; }
+
         [Required]
         public string Email { get; set; }
     }

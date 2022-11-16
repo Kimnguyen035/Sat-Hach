@@ -34,7 +34,7 @@ namespace WebApplication.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetUserDetail(long id)
+        public async Task<IActionResult> GetUserDetail(Guid id)
         {
             var user = await _userRepository.GetUserDetail(id);
 
@@ -63,8 +63,8 @@ namespace WebApplication.Controllers
                 NormalizedUserName = req.UserName.ToUpper(),
                 NormalizedEmail = req.Email.ToUpper(),
                 SecurityStamp = Guid.NewGuid().ToString(),
-                Created_at = DateTime.UtcNow,
-                Updated_at = DateTime.UtcNow
+                Created_at = DateTime.Now,
+                Updated_at = DateTime.Now
             };
             user.PasswordHash = _passwordHasher.HashPassword(user, req.PassWordHash);
 
@@ -74,7 +74,7 @@ namespace WebApplication.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdatedUser(long id, [FromBody] UpdateUser req)
+        public async Task<IActionResult> UpdatedUser(Guid id, [FromBody] UpdateUser req)
         {
             if (!ModelState.IsValid)
             {
@@ -93,7 +93,7 @@ namespace WebApplication.Controllers
             user.UserName = req.UserName;
             user.Email = req.Email;
             user.PasswordHash = _passwordHasher.HashPassword(user, req.PassWordHash);
-            user.Updated_at = DateTime.UtcNow;
+            user.Updated_at = DateTime.Now;
 
             var userUpdate = await _userRepository.UpdateUser(user);
             return Ok(new Usered

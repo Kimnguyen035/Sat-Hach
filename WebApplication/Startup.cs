@@ -43,6 +43,7 @@ namespace WebApplication
             services.AddTransient<IProductRepository, ProductRepository>();
             services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<IRoleRepository, RoleRepository>();
+            services.AddTransient<IRecycleBinRepository, RecycleBinRepository>();
 
             services.AddControllers();
 
@@ -54,6 +55,7 @@ namespace WebApplication
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
                 options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+           
             })
 
             // Adding Jwt Bearer  
@@ -67,8 +69,27 @@ namespace WebApplication
                     ValidateAudience = true,
                     ValidAudience = Configuration["Jwt:Audience"],
                     ValidIssuer = Configuration["Jwt:Issuer"],
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]))
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"])),
+                   
                 };
+                //options.Events = new JwtBearerEvents()
+                //{
+                //    OnAuthenticationFailed = (ctx) =>
+                //    {
+                //        var ttttt = ctx;
+                //        return null;
+                //    },
+                   
+                //    OnTokenValidated = (ctx) => {
+                //        var ttt = ctx;
+                //        return null;
+                //    },
+                //    OnForbidden = (ctx) => {
+                //        var ttt = ctx;
+                //        return null;
+                //    }
+                //};
+                //options.IncludeErrorDetails = true;)
             });
 
             //services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)

@@ -8,13 +8,13 @@ namespace WebModels
 {
     public class Producted
     {
-        public long Id { get; set; }
+        public Guid Id { get; set; }
 
         public string Name { get; set; }
 
         public double Price { get; set; }
 
-        public long? UserId { get; set; }
+        public Guid? UserId { get; set; }
 
         public bool Status { get; set; }
 

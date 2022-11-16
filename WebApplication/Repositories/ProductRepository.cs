@@ -32,7 +32,7 @@ namespace WebApplication.Repositories
             return new PageList<Product>(data, count, paging.PageNumber, paging.PageSize);
         }
 
-        public async Task<Product> GetProductDetail(long id)
+        public async Task<Product> GetProductDetail(Guid id)
         {
             return await _context.Products.FindAsync(id);
         }

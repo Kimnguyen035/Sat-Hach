@@ -1,0 +1,47 @@
+﻿@page "/recycle"
+@using BlazorWebAssemblyApp.Pages.Components
+@using BlazorWebAssemblyApp.Components
+
+@if (RecycleBins == null)
+{
+    <LoadingIndicator></LoadingIndicator>
+}
+else
+{
+    <h3>Recycle Bin</h3>
+
+    <div class="row mt-4">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Create date</th>
+                    <th>Edit date</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in RecycleBins)
+                {
+                    <tr>
+                        <td>@item.Name</td>
+                        <td>@item.Price</td>
+                        <td>@item.Created_at</td>
+                        <td>@item.Updated_at</td>
+                        <td>
+                            <button class="btn btn-primary" @onclick="() => OnRestore(item.Id)">Restore</button> | 
+                            <button class="btn btn-danger" @onclick="() => OnDeleteProduct(item.Id)">Delete</button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <Confirmation ConfirmationMessage="Are you sure to delete?"
+                  ConfirmationTitle="Delete Product"
+                  @ref="DeleteConfirmation"
+                  ConfirmationChanged="OnConfirmDeleteTask">
+
+    </Confirmation>
+}

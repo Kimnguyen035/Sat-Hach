@@ -10,7 +10,7 @@ namespace WebApplication.Repositories
     {
         public Task<IEnumerable<Role>> GetAllRole();
 
-        public Task<Role> GetRoleId(long id);
+        public Task<Role> GetRoleId(Guid id);
 
         public Task<Role> CreateRole(Role role);
 

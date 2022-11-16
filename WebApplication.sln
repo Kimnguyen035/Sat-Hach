@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31205.134
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApplication", "WebApplication\WebApplication.csproj", "{9B61C152-3FB9-43A5-A9B7-3A6134AAC385}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApplication", "WebApplication\WebApplication.csproj", "{9B61C152-3FB9-43A5-A9B7-3A6134AAC385}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebModels", "WebModels\WebModels.csproj", "{FCC801C0-AF83-4D0C-B0CB-A800501785B9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebModels", "WebModels\WebModels.csproj", "{FCC801C0-AF83-4D0C-B0CB-A800501785B9}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorWebAssemblyApp", "BlazorWebAssemblyApp\BlazorWebAssemblyApp.csproj", "{31A94346-D54D-4ED8-86DE-F10ECA9D3254}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{FCC801C0-AF83-4D0C-B0CB-A800501785B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FCC801C0-AF83-4D0C-B0CB-A800501785B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FCC801C0-AF83-4D0C-B0CB-A800501785B9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{31A94346-D54D-4ED8-86DE-F10ECA9D3254}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{31A94346-D54D-4ED8-86DE-F10ECA9D3254}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{31A94346-D54D-4ED8-86DE-F10ECA9D3254}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{31A94346-D54D-4ED8-86DE-F10ECA9D3254}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

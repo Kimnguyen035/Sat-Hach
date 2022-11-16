@@ -8,7 +8,7 @@ namespace WebModels
 {
     public class Usered
     {
-        public long Id { get; set; }
+        public Guid Id { get; set; }
 
         public string FirstName { get; set; }
 

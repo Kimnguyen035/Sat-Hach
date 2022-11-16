@@ -1,0 +1,95 @@
+﻿@*@page "/detail/{Id}"*@
+@using BlazorWebAssemblyApp.Components
+@using WebModels
+@using BlazorWebAssemblyApp.Services
+
+@inject IProductApiClient productApiClient;
+
+@if (ShowConfirmation)
+{
+    <div class="modal fade show d-block" id="exampleModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Product Detail</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                            @onclick="() => OnConfirmationChange(false)">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Product Detail</p>
+                    @*@if (detail == null)
+                    {
+                        <LoadingIndicator></LoadingIndicator>
+                    }
+                    else
+                    {
+                        <h3>Product @detail.Name</h3>
+                        <table class="table">
+                            <tr>
+                                <td>Product Code</td>
+                                <td>@detail.Id</td>
+                            </tr>
+                            <tr>
+                                <td>Product Name</td>
+                                <td>@detail.Name</td>
+                            </tr>
+                            <tr>
+                                <td>Price</td>
+                                <td>@detail.Price</td>
+                            </tr>
+                            <tr>
+                                <td>User</td>
+                                <td>@detail.UserId</td>
+                            </tr>
+                            <tr>
+                                <td>Create date</td>
+                                <td>@detail.Created_at</td>
+                            </tr>
+                            <tr>
+                                <td>Edit date</td>
+                                <td>@detail.Updated_at</td>
+                            </tr>
+                        </table>
+                    }*@
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal"
+                            @onclick="() => OnConfirmationChange(false)">
+                        Cancel
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@code {
+    [Parameter]
+    public string Id { set; get; }
+
+    private Producted detail { set; get; }
+
+    protected bool ShowConfirmation { get; set; }
+
+    [Parameter]
+    public EventCallback<bool> ConfirmationChanged { get; set; }
+
+    public void Show()
+    {
+        ShowConfirmation = true;
+        StateHasChanged();
+    }
+
+    protected async Task OnConfirmationChange(bool value)
+    {
+        ShowConfirmation = false;
+        await ConfirmationChanged.InvokeAsync(value);
+    }
+
+    //protected async override Task OnInitializedAsync()
+    //{
+    //    detail = await productApiClient.GetDetail(Id);
+    //}
+}

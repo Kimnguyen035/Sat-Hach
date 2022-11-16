@@ -11,7 +11,7 @@ namespace WebApplication.Repositories
     {
         Task<PageList<Product>> GetAllProduct(PagingParameter paging);
 
-        Task<Product> GetProductDetail(long id);
+        Task<Product> GetProductDetail(Guid id);
 
         Task<Product> CreateProduct(Product product);
 

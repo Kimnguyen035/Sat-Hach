@@ -10,7 +10,7 @@ namespace WebApplication.Repositories
     {
         public Task<IEnumerable<User>> GetAllUser();
 
-        public Task<User> GetUserDetail(long id);
+        public Task<User> GetUserDetail(Guid id);
 
         public Task<User> CreateUser(User user);
 

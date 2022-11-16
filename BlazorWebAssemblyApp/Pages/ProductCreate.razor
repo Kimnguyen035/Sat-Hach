@@ -1,0 +1,20 @@
+﻿@page "/create"
+
+<h3>ProductCreate</h3>
+
+<EditForm Model="product" >
+    <DataAnnotationsValidator />
+    <div class="form-group">
+        <label for="Name">Product Name</label>
+        <InputText class="form-control" @bind-Value="product.Name"></InputText>
+        <ValidationMessage For="()=>product.Name"></ValidationMessage>
+        <small id="nameHelp" class="form-text text-muted">Please enter product title here.</small>
+    </div>
+    <div class="form-group">
+        <label for="Name">Price</label>
+        <InputNumber class="form-control" @bind-Value="product.Price"></InputNumber>
+        <ValidationMessage For="()=>product.Price"></ValidationMessage>
+        <small id="nameHelp" class="form-text text-muted">Please enter product title here.</small>
+    </div>
+    <button type="submit" class="btn btn-primary" @onclick="SubmitTask">Submit</button>
+</EditForm>

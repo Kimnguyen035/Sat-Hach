@@ -22,7 +22,7 @@ namespace WebApplication.Repositories
             return await _context.Users.ToListAsync();
         }
 
-        public async Task<User> GetUserDetail(long id)
+        public async Task<User> GetUserDetail(Guid id)
         {
             return await _context.Users.FindAsync(id);
         }

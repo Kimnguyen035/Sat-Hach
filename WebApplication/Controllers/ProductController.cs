@@ -15,27 +15,33 @@ namespace WebApplication.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class ProductController : ControllerBase
     {
         private IProductRepository _productRepository;
-        private IRoleRepository _roleRepository;
 
-        public ProductController(IProductRepository productRepository, IRoleRepository roleRepository)
+        public ProductController(IProductRepository productRepository)
         {
             _productRepository = productRepository;
-            _roleRepository = roleRepository;
         }
 
         [HttpGet]
-        [Authorize(Roles = "Admin, User")]
         public async Task<IActionResult> GetAllProduct([FromQuery] PagingParameter paging)
         {
             var pageList = await _productRepository.GetAllProduct(paging);
 
-            var productList = pageList.Items;
+            var productList = pageList.Items.Select(x => new Producted()
+            {
+                Id = x.Id,
+                Name = x.Name,
+                Price = x.Price,
+                UserId = x.UserId,
+                Status = x.Status,
+                Created_at = x.Created_at,
+                Updated_at = x.Updated_at,
+            }).Where(x => x.Status == true);
 
-            return Ok(new PageList<Product>(
+            return Ok(new PageList<Producted>(
                 productList.ToList(),
                 pageList.metaData.TotalCount,
                 pageList.metaData.CurrentPage,
@@ -44,8 +50,7 @@ namespace WebApplication.Controllers
         }
 
         [HttpGet("{id}")]
-        [Authorize(Roles = "Admin, User")]
-        public async Task<IActionResult> GetProductDetail(long id)
+        public async Task<IActionResult> GetProductDetail(Guid id)
         {
             var product = await _productRepository.GetProductDetail(id);
 
@@ -58,7 +63,6 @@ namespace WebApplication.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = UserRoles.Admin)]
         public async Task<IActionResult> CreateProduct([FromBody] CreateProduct req)
         {
             if (!ModelState.IsValid)
@@ -70,8 +74,8 @@ namespace WebApplication.Controllers
             {
                 Name = req.Name,
                 Price = req.Price,
-                Created_at = DateTime.UtcNow,
-                Updated_at = DateTime.UtcNow,
+                Created_at = DateTime.Now,
+                Updated_at = DateTime.Now,
                 Status = true
             });
 
@@ -79,8 +83,7 @@ namespace WebApplication.Controllers
         }
 
         [HttpPut("update/{id}")]
-        [Authorize(Roles = UserRoles.Admin)]
-        public async Task<IActionResult> UpdatedProduct(long id, [FromBody] UpdateProduct req)
+        public async Task<IActionResult> UpdatedProduct(Guid id, [FromBody] UpdateProduct req)
         {
             if (!ModelState.IsValid)
             {
@@ -96,7 +99,7 @@ namespace WebApplication.Controllers
 
             product.Name = req.Name;
             product.Price = req.Price;
-            product.Updated_at = DateTime.UtcNow;
+            product.Updated_at = DateTime.Now;
 
             var productUpdate = await _productRepository.UpdatedProduct(product);
             return Ok(new Producted
@@ -112,8 +115,7 @@ namespace WebApplication.Controllers
         }
 
         [HttpPut("deleteSoft/{id}")]
-        [Authorize(Roles = UserRoles.Admin)]
-        public async Task<IActionResult> DeletedSoftProduct(long id)
+        public async Task<IActionResult> DeletedSoftProduct(Guid id)
         {
             if (!ModelState.IsValid)
             {
@@ -128,6 +130,7 @@ namespace WebApplication.Controllers
             }
 
             product.Status = false;
+            product.Updated_at = DateTime.Now;
 
             var productDelete = await _productRepository.UpdatedProduct(product);
             return Ok(new Producted
@@ -143,8 +146,7 @@ namespace WebApplication.Controllers
         }
 
         [HttpDelete("deleteEternal/{id}")]
-        [Authorize(Roles = UserRoles.Admin)]
-        public async Task<IActionResult> DeletedEternalProduct(long id)
+        public async Task<IActionResult> DeletedEternalProduct(Guid id)
         {
             if (!ModelState.IsValid)
             {

@@ -22,7 +22,7 @@ namespace WebApplication.Repositories
             return await _context.Roles.ToListAsync();
         }
 
-        public async Task<Role> GetRoleId(long id)
+        public async Task<Role> GetRoleId(Guid id)
         {
             return await _context.Roles.FindAsync(id);
         }

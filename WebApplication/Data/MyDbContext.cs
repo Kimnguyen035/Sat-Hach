@@ -9,7 +9,7 @@ using WebApplication.Entities;
 
 namespace WebApplication.Data
 {
-    public class MyDbContext : IdentityDbContext<User, Role, long>
+    public class MyDbContext : IdentityDbContext<User, Role, Guid>
     {
         public MyDbContext(DbContextOptions<MyDbContext> options) : base(options) { }
 

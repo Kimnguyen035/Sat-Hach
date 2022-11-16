@@ -1,0 +1,57 @@
+﻿@page "/productList"
+@using BlazorWebAssemblyApp.Pages.Components
+@using WebModels.Pagination
+@using BlazorWebAssemblyApp.Components
+
+@if (Products == null)
+{
+    <LoadingIndicator></LoadingIndicator>
+}
+else
+{
+    <h3>ProductList</h3>
+
+    <div class="row mt-4">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Create date</th>
+                    <th>Edit date</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Products)
+                {
+                    <tr>
+                        <td>@item.Name</td>
+                        <td>@item.Price</td>
+                        <td>@item.Created_at</td>
+                        <td>@item.Updated_at</td>
+                        <td>
+                            @*<a href="/detail/{@item.Id}" class="btn btn-primary">Detail</a>*@
+                            <button class="btn btn-primary" @onclick="() => ShowDetail(item.Id)">Detail</button> |
+                            <a href="/edit/{@item.Id}" class="btn btn-warning">Edit</a> |
+                            <button class="btn btn-danger" @onclick="() => OnDeleteProduct(item.Id)">Delete</button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+            <tfoot>
+                <Pagination MetaData="MetaData" Spread="2" SelectedPage="SelectedPage"></Pagination>
+            </tfoot>
+        </table>
+    </div>
+
+    <Confirmation ConfirmationMessage="Are you sure to delete?"
+                  ConfirmationTitle="Delete Product"
+                  @ref="DeleteConfirmation"
+                  ConfirmationChanged="OnConfirmDeleteTask">
+
+    </Confirmation>
+
+    <ProductDetail @ref="productDetail"
+                   ConfirmationChanged="OnConfirmDetail">
+    </ProductDetail>
+}
