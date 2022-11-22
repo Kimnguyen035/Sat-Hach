@@ -2,6 +2,7 @@
 using BlazorWebAssemblyApp.Services;
 using BlazorWebAssemblyApp.Shared;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Authorization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,9 +26,12 @@ namespace BlazorWebAssemblyApp.Pages
         [CascadingParameter]
         private Error Error { set; get; }
 
+        [CascadingParameter]
+        Task<AuthenticationState> authenticationState { get; set; }
+
         protected override async Task OnInitializedAsync()
         {
-            if (authService.User == null)
+            if (!(await authenticationState).User.Identity.IsAuthenticated)
             {
                 navigationManager.NavigateTo("/login");
             }

@@ -1,64 +1,55 @@
-﻿@page "/edit/{Id}"
-@using WebModels;
-@using BlazorWebAssemblyApp.Services;
-@using BlazorWebAssemblyApp.Components;
+﻿@using BlazorWebAssemblyApp.Components;
 
-@inject IProductApiClient productApiClient;
-@inject NavigationManager NavigationManager;
-@inject IToastService ToastService
-@if (product == null)
+@if (ShowConfirmation)
 {
-    <LoadingIndicator></LoadingIndicator>
-}
-else
-{
-    <h3>Product Edit: @product.Name</h3>
+    <div class="modal fade show d-block" id="exampleModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Product Edit</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                            @onclick="() => OnConfirmationChange(false)">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    @if (productEdit == null)
+                    {
+                        <LoadingIndicator></LoadingIndicator>
+                    }
+                    else
+                    {
+                        <h3>Product Edit: @productEdit.Name</h3>
 
-    <EditForm Model="product" OnValidSubmit="SubmitTask">
-        <DataAnnotationsValidator />
-        <div class="form-group">
-            <label for="Name">Product Name</label>
-            <InputText class="form-control" @bind-Value="product.Name"></InputText>
-            <ValidationMessage For="()=>product.Name"></ValidationMessage>
-            <small id="nameHelp" class="form-text text-muted">Please enter product title here.</small>
+                        <EditForm id="f" Model="productEdit" OnValidSubmit="OnValidSubmit">
+                            <DataAnnotationsValidator />
+                            <div class="form-group">
+                                <label for="Name">Product Name</label>
+                                <InputText class="form-control" @bind-Value="productEdit.Name"></InputText>
+                                <ValidationMessage For="()=>productEdit.Name"></ValidationMessage>
+                                <small id="nameHelp" class="form-text text-muted">Please enter product title here.</small>
+                            </div>
+                            <div class="form-group">
+                                <label for="Name">Price</label>
+                                <InputNumber class="form-control" @bind-Value="productEdit.Price"></InputNumber>
+                                <ValidationMessage For="()=>productEdit.Price"></ValidationMessage>
+                                <small id="nameHelp" class="form-text text-muted">Please enter product title here.</small>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </EditForm>
+                    }
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-dismiss="modal"
+                            @onclick="() => OnConfirmationChange(false)">
+                        Cancel
+                    </button>
+                    <button type="button" class="btn btn-outline-success"
+                            @onclick="() => OnConfirmationChange(true)">
+                        Update
+                    </button>
+                </div>
+            </div>
         </div>
-        <div class="form-group">
-            <label for="Name">Price</label>
-            <InputNumber class="form-control" @bind-Value="product.Price"></InputNumber>
-            <ValidationMessage For="()=>product.Price"></ValidationMessage>
-            <small id="nameHelp" class="form-text text-muted">Please enter product title here.</small>
-        </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
-    </EditForm>
-
-}
-
-@code {
-    [Parameter]
-    public string Id { set; get; }
-
-    private UpdateProduct product;
-
-    protected async override Task OnInitializedAsync()
-    {
-        var producted = await productApiClient.GetDetail(Id);
-        product = new UpdateProduct();
-        product.Name = producted.Name;
-        product.Price = producted.Price;
-    }
-
-    private async Task SubmitTask(EditContext context)
-    {
-        var result = await productApiClient.UpdateProduct(Guid.Parse(Id), product);
-        if (result)
-        {
-            ToastService.ShowSuccess($"{product.Name} has been updated successfully.", "Success");
-            NavigationManager.NavigateTo("/productList");
-        }
-        else
-        {
-            ToastService.ShowError($"An error occurred in progress. Please contact to administrator.", "Error");
-
-        }
-    }
+    </div>
 }

@@ -1,9 +1,11 @@
-﻿@page "/login"
-@using WebModels;
-@using BlazorWebAssemblyApp.Services;
+﻿@layout LoginLayout
+@page "/login"
+@using WebModels
+@using BlazorWebAssemblyApp.Services
 
 @inject NavigationManager NavigationManager
 @inject IAuthService AuthService
+
 
 @if (ShowErrors)
 {
@@ -11,30 +13,55 @@
         <p>@Error</p>
     </div>
 }
-<div class="card">
-    <div class="card-body">
-        <h5 class="card-title">Login</h5>
-        <EditForm Model="LoginModel" OnValidSubmit="HandleLogin">
-            <DataAnnotationsValidator></DataAnnotationsValidator>
-            <ValidationSummary></ValidationSummary>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
-            <div class="form-group">
-                <label for="username">Username</label>
-                <InputText id="username" class="form-control" @bind-Value="LoginModel.UserName"></InputText>
-                <ValidationMessage For="()=> LoginModel.UserName"></ValidationMessage>
-            </div>
+    <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css" media="all">
+    <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="//fonts.googleapis.com/css?family=Sirin+Stencil" rel="stylesheet">
+</head>
 
-            <div class="form-group">
-                <label for="password">Password</label>
-                <InputText id="password" type="password" class="form-control" @bind-Value="LoginModel.Password"></InputText>
-                <ValidationMessage For="()=> LoginModel.Password"></ValidationMessage>
+<body>
+    <div class="container demo-1">
+        <div class="content">
+            <div id="large-header" class="large-header">
+                <h1>Login Form</h1>
+                <div class="main-agileits">
+                    <div class="form-w3-agile">
+                        <h2>Login Now</h2>
+                        <EditForm Model="LoginModel" OnValidSubmit="HandleLogin">
+                            <div class="form-sub-w3">
+                                <input type="text" name="Username" placeholder="Username " required="" @bind-value="LoginModel.UserName" />
+                                <div class="icon-w3">
+                                    <i class="fa fa-user" aria-hidden="true"></i>
+                                </div>
+                            </div>
+                            <div class="form-sub-w3">
+                                <input type="password" name="Password" placeholder="Password" required="" @bind-value="LoginModel.Password" />
+                                <div class="icon-w3">
+                                    <i class="fa fa-unlock-alt" aria-hidden="true"></i>
+                                </div>
+                            </div>
+                            @*<p class="p-bottom-w3ls"> Forgot Password? <a href="#">  Click here</a></p>*@
+                            <p class="p-bottom-w3ls1"> New User? <a href="register">  Register here</a></p>
+                            <div class="clear"></div>
+                            <div class="submit-w3l">
+                                <input type="submit" value="Login">
+                            </div>
+                        </EditForm>
+                    </div>
+                </div>
             </div>
-            <button type="submit" class="btn btn-success" >Login</button>
-        </EditForm>
+        </div>
     </div>
-</div>
+</body>
+</html>
 
-@code {
+@code{
     private bool ShowErrors;
     private string Error = "";
     private LoginRequest LoginModel = new LoginRequest();
@@ -46,7 +73,7 @@
         var result = await AuthService.Login(LoginModel);
         if (result.Successful)
         {
-            NavigationManager.NavigateTo("/productList");
+            NavigationManager.NavigateTo("/");
         }
         else
         {

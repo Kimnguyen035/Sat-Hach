@@ -10,6 +10,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using WebApplication.Entities;
 using WebApplication.Repositories;
@@ -46,16 +47,14 @@ namespace WebApplication.Controllers
             var result = await _signInManager.PasswordSignInAsync(login.UserName, login.Password, false, false);
 
             if (!result.Succeeded) return BadRequest(new LoginResponse { Successful = false, Error = "Username and password are invalid." });
-
             var claims = new[]
             {
                 new Claim(ClaimTypes.Name, login.UserName),
                 new Claim("UserId", user.Id.ToString())
             };
-
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-            var expiry = DateTime.Now.AddDays(1);
+            var expiry = DateTime.Now.AddMinutes(2);
 
             var token = new JwtSecurityToken(
                 _configuration["Jwt:Issuer"],
@@ -65,7 +64,19 @@ namespace WebApplication.Controllers
                 signingCredentials: creds
             );
 
+            var SaveToken = new JwtSecurityTokenHandler().WriteToken(token);
+            HttpContext.Session.SetString("SaveToken", SaveToken);
+
             return Ok(new LoginResponse { Successful = true, Token = new JwtSecurityTokenHandler().WriteToken(token) });
+        }
+
+        [HttpPost]
+        [Route("logout")]
+        public async Task<IActionResult> Logout()
+        {
+            await _signInManager.SignOutAsync();
+
+            return Ok();
         }
 
         [HttpPost]

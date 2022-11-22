@@ -124,13 +124,6 @@ using Microsoft.AspNetCore.Components.Authorization;
 #line default
 #line hidden
 #nullable disable
-#nullable restore
-#line 4 "C:\Users\ASUS\Desktop\WebApplication\BlazorWebAssemblyApp\Shared\MainLayout.razor"
-using BlazorWebAssemblyApp.Services;
-
-#line default
-#line hidden
-#nullable disable
     public partial class MainLayout : LayoutComponentBase
     {
         #pragma warning disable 1998
@@ -138,22 +131,6 @@ using BlazorWebAssemblyApp.Services;
         {
         }
         #pragma warning restore 1998
-#nullable restore
-#line 45 "C:\Users\ASUS\Desktop\WebApplication\BlazorWebAssemblyApp\Shared\MainLayout.razor"
-       
-    //protected override void OnInitialized()
-    //{
-    //    if (authService.User == null)
-    //    {
-    //        navigationManager.NavigateTo("/login");
-    //    }
-    //}
-
-#line default
-#line hidden
-#nullable disable
-        [global::Microsoft.AspNetCore.Components.InjectAttribute] private IAuthService authService { get; set; }
-        [global::Microsoft.AspNetCore.Components.InjectAttribute] private NavigationManager navigationManager { get; set; }
     }
 }
 #pragma warning restore 1591

@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 
 namespace BlazorWebAssemblyApp
 {
@@ -30,8 +31,10 @@ namespace BlazorWebAssemblyApp
             builder.Services.AddAuthorizationCore();
             builder.Services.AddScoped<AuthenticationStateProvider, ApiAuthenticationStateProvider>();
 
-            builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("https://localhost:5001") });
-
+            builder.Services.AddScoped(sp => new HttpClient {
+                BaseAddress = new Uri(builder.Configuration["urlWebHost"])
+            });
+            
             await builder.Build().RunAsync();
         }
     }

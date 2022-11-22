@@ -18,18 +18,12 @@ namespace BlazorWebAssemblyApp.Services
         private readonly ILocalStorageService _localStorage;
         private readonly AuthenticationStateProvider _authenticationStateProvider;
 
-        public Usered User { get; private set; }
-
-        public AuthService(HttpClient httpClient, AuthenticationStateProvider authenticationStateProvider, ILocalStorageService localStorage)
+        public AuthService(HttpClient httpClient, AuthenticationStateProvider authenticationStateProvider, 
+            ILocalStorageService localStorage)
         {
             _httpClient = httpClient;
             _authenticationStateProvider = authenticationStateProvider;
             _localStorage = localStorage;
-        }
-
-        public async Task Initialize()
-        {
-            User = await _localStorage.GetItemAsync<Usered>("authToken");
         }
 
         public async Task<LoginResponse> Login(LoginRequest loginRequest)
@@ -50,13 +44,6 @@ namespace BlazorWebAssemblyApp.Services
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", loginResponse.Token);
 
             return loginResponse;
-        }
-
-        public async Task<LoginResponse> GetAuth()
-        {
-            var auth = await _localStorage.GetItemAsync<LoginResponse>("authToken");
-
-            return auth;
         }
 
         public async Task Logout()

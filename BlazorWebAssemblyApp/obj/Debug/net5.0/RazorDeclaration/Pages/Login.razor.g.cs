@@ -118,19 +118,20 @@ using Microsoft.AspNetCore.Components.Authorization;
 #line hidden
 #nullable disable
 #nullable restore
-#line 2 "C:\Users\ASUS\Desktop\WebApplication\BlazorWebAssemblyApp\Pages\Login.razor"
+#line 3 "C:\Users\ASUS\Desktop\WebApplication\BlazorWebAssemblyApp\Pages\Login.razor"
 using WebModels;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 3 "C:\Users\ASUS\Desktop\WebApplication\BlazorWebAssemblyApp\Pages\Login.razor"
+#line 4 "C:\Users\ASUS\Desktop\WebApplication\BlazorWebAssemblyApp\Pages\Login.razor"
 using BlazorWebAssemblyApp.Services;
 
 #line default
 #line hidden
 #nullable disable
+    [Microsoft.AspNetCore.Components.LayoutAttribute(typeof(LoginLayout))]
     [Microsoft.AspNetCore.Components.RouteAttribute("/login")]
     public partial class Login : Microsoft.AspNetCore.Components.ComponentBase
     {
@@ -140,8 +141,8 @@ using BlazorWebAssemblyApp.Services;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 37 "C:\Users\ASUS\Desktop\WebApplication\BlazorWebAssemblyApp\Pages\Login.razor"
-       
+#line 64 "C:\Users\ASUS\Desktop\WebApplication\BlazorWebAssemblyApp\Pages\Login.razor"
+      
     private bool ShowErrors;
     private string Error = "";
     private LoginRequest LoginModel = new LoginRequest();
@@ -153,7 +154,7 @@ using BlazorWebAssemblyApp.Services;
         var result = await AuthService.Login(LoginModel);
         if (result.Successful)
         {
-            NavigationManager.NavigateTo("/productList");
+            NavigationManager.NavigateTo("/");
         }
         else
         {

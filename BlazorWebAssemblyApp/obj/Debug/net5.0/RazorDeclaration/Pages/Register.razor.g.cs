@@ -118,19 +118,20 @@ using Microsoft.AspNetCore.Components.Authorization;
 #line hidden
 #nullable disable
 #nullable restore
-#line 2 "C:\Users\ASUS\Desktop\WebApplication\BlazorWebAssemblyApp\Pages\Register.razor"
+#line 3 "C:\Users\ASUS\Desktop\WebApplication\BlazorWebAssemblyApp\Pages\Register.razor"
 using WebModels;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 3 "C:\Users\ASUS\Desktop\WebApplication\BlazorWebAssemblyApp\Pages\Register.razor"
+#line 4 "C:\Users\ASUS\Desktop\WebApplication\BlazorWebAssemblyApp\Pages\Register.razor"
 using BlazorWebAssemblyApp.Services;
 
 #line default
 #line hidden
 #nullable disable
+    [Microsoft.AspNetCore.Components.LayoutAttribute(typeof(LoginLayout))]
     [Microsoft.AspNetCore.Components.RouteAttribute("/register")]
     public partial class Register : Microsoft.AspNetCore.Components.ComponentBase
     {
@@ -140,9 +141,11 @@ using BlazorWebAssemblyApp.Services;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 55 "C:\Users\ASUS\Desktop\WebApplication\BlazorWebAssemblyApp\Pages\Register.razor"
+#line 56 "C:\Users\ASUS\Desktop\WebApplication\BlazorWebAssemblyApp\Pages\Register.razor"
        
     private RegisterUser user = new RegisterUser();
+
+    private string setValue { get; set; }
 
     private async Task OnValidSubmit()
     {
@@ -156,6 +159,7 @@ using BlazorWebAssemblyApp.Services;
             if (result)
             {
                 ToastService.ShowSuccess($"{user.UserName} has been created successfully.", "Success");
+                NavigationManager.NavigateTo("/login");
             }
             else
             {

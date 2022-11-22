@@ -125,6 +125,24 @@ using Microsoft.AspNetCore.Components.Authorization;
         {
         }
         #pragma warning restore 1998
+#nullable restore
+#line 14 "C:\Users\ASUS\Desktop\WebApplication\BlazorWebAssemblyApp\Pages\Index.razor"
+      
+    //[CascadingParameter]
+    //Task<AuthenticationState> authenticationState { get; set; }
+
+    //protected override async Task OnInitializedAsync()
+    //{
+    //    if (!(await authenticationState).User.Identity.IsAuthenticated)
+    //    {
+    //        navigationManager.NavigateTo("/login");
+    //    }
+    //}
+
+#line default
+#line hidden
+#nullable disable
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private NavigationManager navigationManager { get; set; }
     }
 }
 #pragma warning restore 1591

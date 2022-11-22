@@ -15,8 +15,8 @@ namespace WebApplication.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    public class ProductController : ControllerBase
+    [Authorize]
+    public class ProductController : /*BaseController*/ ControllerBase
     {
         private IProductRepository _productRepository;
 
@@ -28,6 +28,15 @@ namespace WebApplication.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllProduct([FromQuery] PagingParameter paging)
         {
+            //var status = CheckToken();
+            //if (status.StatusCode == 401)
+            //{
+            //    return Ok(new PageList<StatusResponse>(
+            //        status.StatusCode,
+            //        status.Messages,
+            //        status.Token
+            //    ));
+            //}
             var pageList = await _productRepository.GetAllProduct(paging);
 
             var productList = pageList.Items.Select(x => new Producted()

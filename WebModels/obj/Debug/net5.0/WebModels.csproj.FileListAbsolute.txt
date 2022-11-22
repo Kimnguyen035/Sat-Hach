@@ -9,3 +9,4 @@ C:\Users\ASUS\Desktop\WebApplication\WebModels\obj\Debug\net5.0\WebModels.csproj
 C:\Users\ASUS\Desktop\WebApplication\WebModels\obj\Debug\net5.0\WebModels.dll
 C:\Users\ASUS\Desktop\WebApplication\WebModels\obj\Debug\net5.0\ref\WebModels.dll
 C:\Users\ASUS\Desktop\WebApplication\WebModels\obj\Debug\net5.0\WebModels.pdb
+C:\Users\ASUS\Desktop\WebApplication\WebModels\obj\Debug\net5.0\WebModels.csprojAssemblyReference.cache

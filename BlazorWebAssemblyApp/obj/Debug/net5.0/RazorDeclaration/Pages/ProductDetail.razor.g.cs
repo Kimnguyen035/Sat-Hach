@@ -118,22 +118,8 @@ using Microsoft.AspNetCore.Components.Authorization;
 #line hidden
 #nullable disable
 #nullable restore
-#line 2 "C:\Users\ASUS\Desktop\WebApplication\BlazorWebAssemblyApp\Pages\ProductDetail.razor"
+#line 1 "C:\Users\ASUS\Desktop\WebApplication\BlazorWebAssemblyApp\Pages\ProductDetail.razor"
 using BlazorWebAssemblyApp.Components;
-
-#line default
-#line hidden
-#nullable disable
-#nullable restore
-#line 3 "C:\Users\ASUS\Desktop\WebApplication\BlazorWebAssemblyApp\Pages\ProductDetail.razor"
-using WebModels;
-
-#line default
-#line hidden
-#nullable disable
-#nullable restore
-#line 4 "C:\Users\ASUS\Desktop\WebApplication\BlazorWebAssemblyApp\Pages\ProductDetail.razor"
-using BlazorWebAssemblyApp.Services;
 
 #line default
 #line hidden
@@ -145,40 +131,6 @@ using BlazorWebAssemblyApp.Services;
         {
         }
         #pragma warning restore 1998
-#nullable restore
-#line 103 "C:\Users\ASUS\Desktop\WebApplication\BlazorWebAssemblyApp\Pages\ProductDetail.razor"
-       
-    [Parameter]
-    public string Id { set; get; }
-
-    private Producted detail { set; get; }
-
-    protected bool ShowConfirmation { get; set; }
-
-    [Parameter]
-    public EventCallback<bool> ConfirmationChanged { get; set; }
-
-    public void Show()
-    {
-        ShowConfirmation = true;
-        StateHasChanged();
-    }
-
-    protected async Task OnConfirmationChange(bool value)
-    {
-        ShowConfirmation = false;
-        await ConfirmationChanged.InvokeAsync(value);
-    }
-
-    //protected async override Task OnInitializedAsync()
-    //{
-    //    detail = await productApiClient.GetDetail(Id);
-    //}
-
-#line default
-#line hidden
-#nullable disable
-        [global::Microsoft.AspNetCore.Components.InjectAttribute] private IProductApiClient productApiClient { get; set; }
     }
 }
 #pragma warning restore 1591

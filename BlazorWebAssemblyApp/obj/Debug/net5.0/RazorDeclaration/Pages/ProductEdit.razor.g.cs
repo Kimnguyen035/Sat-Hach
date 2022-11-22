@@ -118,27 +118,12 @@ using Microsoft.AspNetCore.Components.Authorization;
 #line hidden
 #nullable disable
 #nullable restore
-#line 2 "C:\Users\ASUS\Desktop\WebApplication\BlazorWebAssemblyApp\Pages\ProductEdit.razor"
-using WebModels;
-
-#line default
-#line hidden
-#nullable disable
-#nullable restore
-#line 3 "C:\Users\ASUS\Desktop\WebApplication\BlazorWebAssemblyApp\Pages\ProductEdit.razor"
-using BlazorWebAssemblyApp.Services;
-
-#line default
-#line hidden
-#nullable disable
-#nullable restore
-#line 4 "C:\Users\ASUS\Desktop\WebApplication\BlazorWebAssemblyApp\Pages\ProductEdit.razor"
+#line 1 "C:\Users\ASUS\Desktop\WebApplication\BlazorWebAssemblyApp\Pages\ProductEdit.razor"
 using BlazorWebAssemblyApp.Components;
 
 #line default
 #line hidden
 #nullable disable
-    [Microsoft.AspNetCore.Components.RouteAttribute("/edit/{Id}")]
     public partial class ProductEdit : Microsoft.AspNetCore.Components.ComponentBase
     {
         #pragma warning disable 1998
@@ -146,43 +131,6 @@ using BlazorWebAssemblyApp.Components;
         {
         }
         #pragma warning restore 1998
-#nullable restore
-#line 36 "C:\Users\ASUS\Desktop\WebApplication\BlazorWebAssemblyApp\Pages\ProductEdit.razor"
-       
-    [Parameter]
-    public string Id { set; get; }
-
-    private UpdateProduct product;
-
-    protected async override Task OnInitializedAsync()
-    {
-        var producted = await productApiClient.GetDetail(Id);
-        product = new UpdateProduct();
-        product.Name = producted.Name;
-        product.Price = producted.Price;
-    }
-
-    private async Task SubmitTask(EditContext context)
-    {
-        var result = await productApiClient.UpdateProduct(Guid.Parse(Id), product);
-        if (result)
-        {
-            ToastService.ShowSuccess($"{product.Name} has been updated successfully.", "Success");
-            NavigationManager.NavigateTo("/productList");
-        }
-        else
-        {
-            ToastService.ShowError($"An error occurred in progress. Please contact to administrator.", "Error");
-
-        }
-    }
-
-#line default
-#line hidden
-#nullable disable
-        [global::Microsoft.AspNetCore.Components.InjectAttribute] private IToastService ToastService { get; set; }
-        [global::Microsoft.AspNetCore.Components.InjectAttribute] private NavigationManager NavigationManager { get; set; }
-        [global::Microsoft.AspNetCore.Components.InjectAttribute] private IProductApiClient productApiClient { get; set; }
     }
 }
 #pragma warning restore 1591
