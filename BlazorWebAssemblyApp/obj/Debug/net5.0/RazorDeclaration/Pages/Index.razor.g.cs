@@ -128,16 +128,16 @@ using Microsoft.AspNetCore.Components.Authorization;
 #nullable restore
 #line 14 "C:\Users\ASUS\Desktop\WebApplication\BlazorWebAssemblyApp\Pages\Index.razor"
       
-    //[CascadingParameter]
-    //Task<AuthenticationState> authenticationState { get; set; }
+    [CascadingParameter]
+    Task<AuthenticationState> authenticationState { get; set; }
 
-    //protected override async Task OnInitializedAsync()
-    //{
-    //    if (!(await authenticationState).User.Identity.IsAuthenticated)
-    //    {
-    //        navigationManager.NavigateTo("/login");
-    //    }
-    //}
+    protected override async Task OnInitializedAsync()
+    {
+        if (!(await authenticationState).User.Identity.IsAuthenticated)
+        {
+            navigationManager.NavigateTo("/login");
+        }
+    }
 
 #line default
 #line hidden

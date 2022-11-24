@@ -52,10 +52,11 @@ namespace WebApplication.Controllers
                 new Claim(ClaimTypes.Name, login.UserName),
                 new Claim("UserId", user.Id.ToString())
             };
+
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
             var expiry = DateTime.Now.AddMinutes(2);
-
+            
             var token = new JwtSecurityToken(
                 _configuration["Jwt:Issuer"],
                 _configuration["Jwt:Audience"],

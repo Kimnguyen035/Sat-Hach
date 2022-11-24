@@ -15,7 +15,7 @@ namespace WebApplication.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
     public class ProductController : /*BaseController*/ ControllerBase
     {
         private IProductRepository _productRepository;
@@ -23,6 +23,15 @@ namespace WebApplication.Controllers
         public ProductController(IProductRepository productRepository)
         {
             _productRepository = productRepository;
+        }
+
+        public bool CheckLogin()
+        {
+            if (!HttpContext.User.Identity.IsAuthenticated)
+            {
+                return false;
+            }
+            return true;
         }
 
         [HttpGet]
@@ -37,6 +46,14 @@ namespace WebApplication.Controllers
             //        status.Token
             //    ));
             //}
+            if (!CheckLogin())
+            {
+                return Ok(new
+                {
+                    StatusCode = 401,
+                    Messages = "Error"
+                });
+            }
             var pageList = await _productRepository.GetAllProduct(paging);
 
             var productList = pageList.Items.Select(x => new Producted()

@@ -6,12 +6,19 @@ using System.Threading.Tasks;
 
 namespace WebModels
 {
-    public class StatusResponse
+    public class StatusResponse<T>
     {
         public int StatusCode { get; set; }
 
         public string Messages { get; set; }
-        
-        public string Token { get; set; }
+
+        public dynamic Data { get; set; }
+
+        public StatusResponse(dynamic Data, int StatusCode = 200, string Messages = "Successfully!")
+        {
+            this.Data = Data;
+            this.StatusCode = StatusCode;
+            this.Messages = Messages;
+        }
     }
 }

@@ -20,7 +20,6 @@ namespace BlazorWebAssemblyApp.Pages
         [Inject] public NavigationManager navigationManager { get; set; }
 
         private List<Producted> Products { get; set; }
-        private StatusResponse statusResponse { get; set; }
 
         public MetaData MetaData { get; set; } = new MetaData();
 
@@ -66,11 +65,6 @@ namespace BlazorWebAssemblyApp.Pages
             try
             {
                 var pagingReponse = await productApiClient.GetList(paging);
-                //statusResponse = pagingReponse.statusResponse;
-                //if (statusResponse.StatusCode == 401)
-                //{
-                //    navigationManager.NavigateTo("/login");
-                //}
                 Products = pagingReponse.Items;
                 MetaData = pagingReponse.metaData;
             }

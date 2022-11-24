@@ -1,25 +1,25 @@
 ﻿@page "/"
 @inject NavigationManager navigationManager
 
-@*<AuthorizeView>
+<AuthorizeView>
     <Authorized>
-        <h1>Hello, @context.User.Identity.Name</h1>*@
+        <h1>Hello, @context.User.Identity.Name</h1>
 
         Welcome to your new app.
 
         <SurveyPrompt Title="How is Blazor working for you?" />
-    @*</Authorized>
-</AuthorizeView>*@
+    </Authorized>
+</AuthorizeView>
 
 @code{
-    //[CascadingParameter]
-    //Task<AuthenticationState> authenticationState { get; set; }
+    [CascadingParameter]
+    Task<AuthenticationState> authenticationState { get; set; }
 
-    //protected override async Task OnInitializedAsync()
-    //{
-    //    if (!(await authenticationState).User.Identity.IsAuthenticated)
-    //    {
-    //        navigationManager.NavigateTo("/login");
-    //    }
-    //}
+    protected override async Task OnInitializedAsync()
+    {
+        if (!(await authenticationState).User.Identity.IsAuthenticated)
+        {
+            navigationManager.NavigateTo("/login");
+        }
+    }
 }

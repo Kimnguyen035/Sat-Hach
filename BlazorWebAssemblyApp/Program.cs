@@ -29,12 +29,13 @@ namespace BlazorWebAssemblyApp
             builder.Services.AddScoped<IAuthService, AuthService>();
             builder.Services.AddBlazoredLocalStorage();
             builder.Services.AddAuthorizationCore();
+            builder.Services.AddDistributedMemoryCache();
             builder.Services.AddScoped<AuthenticationStateProvider, ApiAuthenticationStateProvider>();
 
             builder.Services.AddScoped(sp => new HttpClient {
                 BaseAddress = new Uri(builder.Configuration["urlWebHost"])
             });
-            
+
             await builder.Build().RunAsync();
         }
     }
